@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">      
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+    <title>Carbon Footprint Tracker</title>
+</head> 
+<body class="bg-green-100">
+    <header class="text-center p-6 bg-green-300 shadow-md">
+    <h1 class="text-4xl font-bold text-green-900">Carbon Footprint Tracker</h1>
+    <div class="inline-block bg-green-100 p-2 mt-5 rounded-lg shadow-md mt-2 mb-8">
+    <p class="text-sm font-medium text-green-800">Track your impact, shape a greener future!</p>
+    </div>
+    </header>
+    <div>
+    <main class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md mt-10">
+    <form id="entryForm" class="space-y-4">
+        <h2 class="text-2xl font-bold text-green-900 mb-4">Add New Entry:</h2>
+        <div>
+            <label for="userIdInput" class="block text-green-700 font-medium mb-2">User ID:</label>
+            <input type="number" id="userIdInput" min="1" value="1" max="5" class="p-2 border border-green-300 rounded-md">
+        </div>
+        <div>
+            <label for="dateInput" class="block text-green-700 font-medium mb-2">Date:</label>
+            <input type="date" id="dateInput" class="p-2 border border-green-300 rounded-md">   
+        </div>
+        
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <label for="travelInput" class="block text-green-700 font-medium mb-2">Travel (km):</label> 
+                <input type="number" id="travelInput" min="0" class="p-2 border border-green-300 rounded-md w-full">
+            </div>
+            <div>
+                <label for="transportSelect" class="block text-green-700 font-medium mb-2">Transport Type:</label>
+                <select id="transportSelect" class="p-2 border border-green-300 rounded-md w-full">
+                    <option value="car">Car</option>
+                    <option value="bus">Bus</option>
+                    <option value="train">Train</option>
+                    <option value="flight">Plane</option>
+                    <option value="bike">Bike</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-4 mt-4">
+            <div>
+                <label for="electricityInput" class="block text-green-700 font-medium mb-2">Electricity (kWh):</label>
+                <input type="number" id="electricityInput" min="0" class="p-2 border border-green-300 rounded-md w-full">
+            </div>
+            <div>
+                <label for="foodSelect" class="block     text-green-700 font-medium mb-2">Food Type:</label>
+                <select id="foodSelect" class="p-2 border border-green-300 rounded-md w-full">
+                    <option value="meat">Meat</option>
+                    <option value="dairy">Dairy</option>
+                    <option value="vegetarian">Vegetarian</option>
+                    <option value="vegan">Vegan</option>
+                </select>
+            </div>
+        </div>
+        <button id="addEntry" type="submit" class="mt-6 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Add Entry</button>
+        <p id="postStatus" class="mt-4 text-sm font font-medium text-center"></p>
+    </form>
+    </main>
+    <div class="grid grid-cols-3 gap-6 max-w-7xl mx-auto p-6">
+        <!--Trend Analysis-->
+        <section class="p-6 bg-white rounded-lg shadow-md mt-10">
+            <h2 class="text-2xl font-bold text-green-900 mb-4">Carbon Footprint Trend Analysis</h2>
+            <p class="text-1.5xl text-green-900">Uses Binary Search Tree to return the days from the oldest to the newest along with the total emission</p>
+            <br>
+            <div>
+                <label for="userIdInput" class="block text-green-700 font-medium mb-2">User ID:</label>
+                <input type="number" id="userIdInputTrend" min="1" value="1" max="5" class="p-2 border border-green-300 rounded-md">
+                <button id="showTrend" type="submit" class="mt-6 ml-4 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Show Trend</button>
+                <p id="postStatus" class="mt-4 text-sm bg-green-100 font font-medium text-center"></p>
+            </div>
+            <div id="trendStatus" class="mt-4 text-sm font-medium text-center mb-4"></div> 
+            <canvas id="trendCanvas" class="w-full h-64"></canvas>
+        </section> 
+        <!--Impact Ranking-->
+        <section class="p-6 bg-white rounded-lg shadow-md mt-10">
+            <h2 class="text-2xl font-bold text-green-900 mb-4">Carbon Footprint Impact Ranking Card</h2>
+            <p class="text-1.5xl text-green-900">Uses Bubble Sort to return the emissions from the highest to the lowest on the selected date</p>
+            <div>
+                <label for="userIdInput" class="block text-green-700 font-medium mb-2">User ID:</label>
+                <input type="number" id="userIdInputRank" min="1" value="1" max="5" class="p-2 border border-green-300 rounded-md">
+                <br>
+                <label for="dateInput" class="mt-2 block text-green-700 font-medium mb-2">Date:</label>
+                <input type="date" id="dateInputRank" class="p-2 border border-green-300 rounded-md">   
+                <button id="showRanks" type="submit" class="ml-4 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Show Ranks</button>
+            </div>
+            <div id="rankingStatus" class="mt-4 text-sm font-medium text-center mb-4"></div> 
+            <canvas id="rankingChart" class="w-full h-64"></canvas>
+        </section>
+        <section class="p-6 bg-white rounded-lg shadow-md mt-10">
+            <h2 class="text-2xl font-bold text-green-900 mb-4">Eco-Friendly Tips</h2>
+            <p class="text-xl text-green-900">Uses Trie to return eco-friendly tips based on user input</p>
+            <br>
+            <form id="tipsForm" class="space-y-4"> <!-- Wrap in form for submission handling -->
+                <div>
+                    <label for="tipInput" class="block text-green-700 font-medium mb-2">Enter Keyword:</label>
+                    <input type="text" id="tipInput" placeholder="e.g., car, dairy, shower" class="p-2 border border-green-300 rounded-md w-full">
+                </div>
+                <button id="getTipsBtn" type="submit" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Get Tips</button>
+            </form>
+            <div id="tipsStatus" class="mt-4 text-sm font-medium text-center mb-4"></div> <!-- Dedicated status -->
+            <ul id="tipsList" class="mt-4 list-disc list-inside text-green-800 bg-green-50 p-4 rounded-md"></ul> <!-- Styled list -->
+        </section>
+
+    </div>
+    </div>
+    <script>
+    let trendChart = null; // Global to manage chart lifecycle
+    let rankingChart = null;
+
+// Helper: Format date for chart labels (e.g., "2023-10-01" -> "Oct 01, 2023")
+function formatDate(dateStr) {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+// Helper: Destroy chart if exists (prevents overlaps)
+function destroyChart(chartVar) {
+    if (chartVar) {
+        chartVar.destroy();
+        chartVar = null;
+    }
+}
+
+// 1. Add New Entry (unchanged, but with form reset fix)
+function postNewFootprint() {
+    const userId = document.getElementById('userIdInput').value;
+    const date = document.getElementById('dateInput').value;
+    const travel = document.getElementById('travelInput').value;    
+    const transport = document.getElementById('transportSelect').value;
+    const electricity = document.getElementById('electricityInput').value;  
+    const food = document.getElementById('foodSelect').value;
+    const status = document.getElementById('postStatus');
+    const payload = {
+        uid: parseInt(userId),
+        rdate: date,
+        travel_km: travel ? parseFloat(travel) : 0,
+        transport_mode: transport || "car",
+        energy_kwh: electricity ? parseFloat(electricity) : 0,
+        food_type: food || "meat"
+    };
+
+    if (!userId || !date) {
+        status.textContent = "User ID and Date are required.";
+        status.className = "text-red-600";
+        return;
+    }
+    fetch('http://localhost:5000/api/add_footprint', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.message && data.message.includes("successfully calculated and inserted")) {
+            status.textContent = "Entry added successfully!";
+            status.className = "text-green-600";
+            document.getElementById('entryForm').reset();
+            // Reset date input to today or clear
+            document.getElementById('dateInput').value = new Date().toISOString().split('T')[0];
+        } else {
+            status.textContent = "Error adding entry: " + data.message;
+            status.className = "text-red-600";
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        status.textContent = "Error adding entry.";
+        status.className = "text-red-600";
+    });
+}
+document.getElementById('entryForm').addEventListener('submit', function(event) {
+    event.preventDefault();  
+    postNewFootprint();      
+});
+
+// 2. Trend Analysis (Updated: Fetch + Line Chart)
+function trendAnalysis() {
+    const userId = document.getElementById('userIdInputTrend').value;
+    const status = document.getElementById('trendStatus');
+    if (!userId) {
+        status.textContent = "User ID is required.";
+        status.className = "text-red-600";
+        return;
+    }
+    fetch(`http://localhost:5000/api/trend/${userId}`)
+    .then(response => response.json())
+    .then(data => {
+        const statusEl = document.getElementById('trendStatus');
+        if (data.message && data.message.includes("Data retrieved")) {
+            statusEl.textContent = "Trend data retrieved successfully!";
+            statusEl.className = "text-green-600";
+
+            //line chart: 
+            const ctx = document.getElementById('trendCanvas').getContext('2d'); //2d chart from the id
+            destroyChart(trendChart); // clears old chart
+
+            const labels = data.trend_data.map(item => formatDate(item.date)); //formats dates for x-axis: Sept 29, 2025
+            const emissions = data.trend_data.map(item => item.total_em); // total emissions are on the y-axis
+
+            trendChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Total Emissions (kg CO2)',
+                        data: emissions,
+                        borderColor: 'rgb(34, 197, 94)', // Green
+                        backgroundColor: 'rgba(34, 197, 94, 0.2)', // Light green fill
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: { beginAtZero: true, title: { display: true, text: 'Emissions (kg CO2)' } }
+                    }
+                }
+            });
+        } else {
+            statusEl.textContent = "Error: " + data.message;
+            statusEl.className = "text-red-600";
+            destroyChart(trendChart); // Clear chart on error
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('trendStatus').textContent = "Error retrieving trend data.";
+        document.getElementById('trendStatus').className = "text-red-600";
+        destroyChart(trendChart);
+    });
+}
+document.getElementById('showTrend').addEventListener('click', function(event) {
+    event.preventDefault();
+    trendAnalysis();      
+});
+
+// 3. Impact Ranking (Updated: Fetch + Bar Chart)
+function impactRanking() {
+    const userId = document.getElementById('userIdInputRank').value;
+    const date = document.getElementById('dateInputRank').value;
+    const status = document.getElementById('rankingStatus');
+    if (!userId || !date) {
+        status.textContent = "User ID and Date are required.";
+        status.className = "text-red-600";
+        return;
+    }
+    fetch(`http://localhost:5000/api/rank_impact/${userId}/${date}`)
+    .then(response => response.json())
+    .then(data => {
+        const statusEl = document.getElementById('rankingStatus');
+        if (data.message && data.message.includes("Data retrieved")) {
+            statusEl.textContent = `Activities ranked for ${formatDate(date)}!`;
+            statusEl.className = "text-green-600";
+
+            // Render Horizontal Bar Chart: Activities (y) vs Emissions (x), highest first
+            const ctx = document.getElementById('rankingChart').getContext('2d');
+            destroyChart(rankingChart); // Clear old chart
+
+            const labels = data.ranked_activities.map(activity => activity[0]); // e.g., ["Food", "Energy", "Travel"]
+            const emissions = data.ranked_activities.map(activity => activity[1]); // e.g., [5.0, 2.5, 0.0]
+
+            rankingChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Emissions (kg CO2)',
+                        data: emissions,
+                        backgroundColor: ['#ef4444', '#f59e0b', '#10b981'], // Red, Orange, Green gradients
+                        borderColor: ['#dc2626', '#d97706', '#059669'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y', // Horizontal bars
+                    responsive: true,
+                    scales: {
+                        x: { beginAtZero: true, title: { display: true, text: 'Emissions (kg CO2)' } }
+                    },
+                    plugins: {
+                        title: { display: true, text: `Impact Ranking on ${formatDate(data.date)}` }
+                    }
+                }
+            });
+        } else {
+            statusEl.textContent = "Error: " + (data.message || "Unknown error");
+            statusEl.className = "text-red-600";
+            destroyChart(rankingChart); // Clear chart on error
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('rankingStatus').textContent = "Error retrieving ranking data.";
+        document.getElementById('rankingStatus').className = "text-red-600";
+        destroyChart(rankingChart);
+    });
+}
+document.getElementById('showRanks').addEventListener('click', function(event) {
+    event.preventDefault();
+    impactRanking();                
+});
+
+// 4. Eco Tips (New: Fetch + List Population)
+function getTips() {
+    const keyword = document.getElementById('tipInput').value.trim().toLowerCase();
+    const status = document.getElementById('tipsStatus');
+    const tipsList = document.getElementById('tipsList');
+
+    if (!keyword) {
+        status.textContent = "Enter a keyword (e.g., car, dairy).";
+        status.className = "text-red-600";
+        tipsList.innerHTML = '';
+        return;
+    }
+
+    fetch(`http://localhost:5000/api/suggest?prefix=${encodeURIComponent(keyword)}`)
+    .then(response => response.json())
+    .then(data => {
+        if (data.recommendations && data.recommendations.length > 0) {
+            status.textContent = `${data.recommendations.length} tip(s) found!`;
+            status.className = "text-green-600";
+
+            // Populate list
+            tipsList.innerHTML = '';
+            data.recommendations.forEach(tip => {
+                const li = document.createElement('li');
+                li.textContent = tip;
+                li.className = "mb-2 p-2 bg-white rounded shadow-sm"; // Styled bullets
+                tipsList.appendChild(li);
+            });
+        } else {
+            status.textContent = "No tips found for '" + keyword + "'. Try another keyword.";
+            status.className = "text-yellow-600";
+            tipsList.innerHTML = '';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('tipsStatus').textContent = "Error fetching tips.";
+        document.getElementById('tipsStatus').className = "text-red-600";
+        tipsList.innerHTML = '';
+    });
+}
+
+// Event listener for tips form
+document.getElementById('tipsForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    getTips();
+});
+
+// Optional: Auto-trigger tips on Enter in input
+document.getElementById('tipInput').addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        getTips();
+    }
+});
+</script>
+
+</body>
+</html>
