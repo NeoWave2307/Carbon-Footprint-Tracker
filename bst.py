@@ -21,20 +21,20 @@ class BST:
 
     def _insert_recursive(self, current_node, new_node):
         """A helper method for the recursive insertion process."""
-        # We compare based on date (the key)
-        if new_node.date < current_node.date:
-            if current_node.left is None:
+
+        if new_node.date < current_node.date: #newnode < root 
+            if current_node.left is None: #if left child is empty
                 current_node.left = new_node
             else:
-                self._insert_recursive(current_node.left, new_node)
-        elif new_node.date > current_node.date:
-            if current_node.right is None:
+                self._insert_recursive(current_node.left, new_node)    #checks the next root
+        elif new_node.date > current_node.date: #newnode > root
+            if current_node.right is None: #if right child is empty
                 current_node.right = new_node
             else:
-                self._insert_recursive(current_node.right, new_node)
-        # Note: We skip the case where dates are equal for simplicity
+                self._insert_recursive(current_node.right, new_node)   #checks the next root
+        #if the data is equal, we don't insert (no duplicates)
 
-    def get_inorder_traversal(self):
+    def get_inorder_traversal(self): #gives the ascending order of the list 
         """
         Performs an inorder traversal to get a sorted list of all records.
         This is a search algorithm.
@@ -47,6 +47,6 @@ class BST:
         """A helper method for the recursive traversal."""
         if node:
             self._inorder_recursive(node.left, results)
-            # Collect the data when the node is visited
+            #prints root
             results.append({"date": node.date, "total_em": node.value})
             self._inorder_recursive(node.right, results)
